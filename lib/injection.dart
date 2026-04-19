@@ -11,6 +11,11 @@ import 'features/auth/domain/usecases/sign_in_with_email_password.dart';
 import 'features/auth/domain/usecases/sign_out.dart';
 import 'features/auth/domain/usecases/sign_up_with_email_password.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/profile/data/datasources/profile_remote_data_source.dart';
+import 'features/profile/data/repositories/profile_repository_impl.dart';
+import 'features/profile/domain/repositories/profile_repository.dart';
+import 'features/profile/domain/usecases/get_profile.dart';
+import 'features/profile/presentation/bloc/profile_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -21,8 +26,23 @@ Future<void> initDependencies() async {
   await SupabaseConfig.initialize();
 
   _initAuth();
+  _initProfile();
 
   serviceLocator.registerLazySingleton(() => SupabaseConfig.client);
+}
+
+void _initProfile() {
+  serviceLocator
+    ..registerFactory<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(serviceLocator()),
+    )
+    ..registerFactory<ProfileRepository>(
+      () => ProfileRepositoryImpl(serviceLocator()),
+    )
+    ..registerFactory(() => GetProfile(serviceLocator()))
+    ..registerFactory(
+      () => ProfileBloc(getProfile: serviceLocator()),
+    );
 }
 
 void _initAuth() {
