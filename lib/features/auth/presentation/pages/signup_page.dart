@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ruay_jung/core/core.dart';
 import '../bloc/auth_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -28,14 +29,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
+    return AppScaffold(
+      title: 'Sign Up',
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailureState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
         builder: (context, state) {
@@ -86,23 +87,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 15),
                   TextFormField(
                     controller: avatarUrlController,
-                    decoration:
-                        const InputDecoration(labelText: 'Avatar URL (Optional)'),
+                    decoration: const InputDecoration(
+                      labelText: 'Avatar URL (Optional)',
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         context.read<AuthBloc>().add(
-                              AuthSignUp(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                                fullName: fullNameController.text.trim(),
-                                avatarUrl: avatarUrlController.text.trim().isEmpty
-                                    ? null
-                                    : avatarUrlController.text.trim(),
-                              ),
-                            );
+                          AuthSignUp(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                            fullName: fullNameController.text.trim(),
+                            avatarUrl: avatarUrlController.text.trim().isEmpty
+                                ? null
+                                : avatarUrlController.text.trim(),
+                          ),
+                        );
                       }
                     },
                     child: const Text('Sign Up'),
