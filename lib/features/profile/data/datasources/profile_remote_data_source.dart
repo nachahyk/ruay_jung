@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 import '../models/profile_model.dart';
@@ -6,6 +7,7 @@ abstract class ProfileRemoteDataSource {
   Future<ProfileModel> getProfile(String id);
 }
 
+@Injectable(as: ProfileRemoteDataSource)
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final SupabaseClient _client;
 

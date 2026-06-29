@@ -21,13 +21,7 @@ class HomePage extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthAuthenticated) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Welcome!'),
-                  Text(state.user.email),
-                ],
-              ),
+              child: Text('Welcome, ${state.user.fullName}!'),
             );
           }
           return const Center(child: Text('Not Authenticated'));

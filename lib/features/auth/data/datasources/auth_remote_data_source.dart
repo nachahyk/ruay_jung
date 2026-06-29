@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 
@@ -20,12 +21,11 @@ abstract class AuthRemoteDataSource {
   Future<void> signOut();
 }
 
+@Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  final SupabaseClient Function() _clientGetter;
+  final SupabaseClient _client;
 
-  AuthRemoteDataSourceImpl(this._clientGetter);
-
-  SupabaseClient get _client => _clientGetter();
+  AuthRemoteDataSourceImpl(this._client);
 
   @override
   Session? get currentUserSession => _client.auth.currentSession;

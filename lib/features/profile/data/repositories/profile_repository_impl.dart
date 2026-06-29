@@ -1,9 +1,11 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/profile_entity.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/profile_remote_data_source.dart';
 
+@Injectable(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;
 
@@ -13,7 +15,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, ProfileEntity>> getProfile(String id) async {
     try {
       final profile = await remoteDataSource.getProfile(id);
-      return right(profile);
+      return right(profile.toEntity());
     } on AuthFailure catch (e) {
       return left(e);
     } catch (e) {

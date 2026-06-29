@@ -24,7 +24,7 @@ class _MainShellState extends State<MainShell> {
       backgroundColor: context.appColors.background,
       body: SafeArea(bottom: false, child: widget.navigationShell),
       floatingActionButton: CircleFab(
-        onPressed: () => context.go('/transaction'),
+        onPressed: () => context.push('/add-transaction'),
         icon: Icon(Icons.add, color: Colors.white),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

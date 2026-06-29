@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import '../../domain/entities/profile_entity.dart';
 import '../../domain/usecases/get_profile.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 
+@injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfile _getProfile;
 

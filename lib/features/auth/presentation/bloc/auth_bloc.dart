@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/get_current_user.dart';
 import '../../domain/usecases/sign_in_with_email_password.dart';
@@ -9,6 +10,7 @@ import '../../domain/usecases/sign_up_with_email_password.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+@lazySingleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpWithEmailPassword _signUpWithEmailPassword;
   final SignInWithEmailPassword _signInWithEmailPassword;

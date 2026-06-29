@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ruay_jung/features/transaction/presentation/pages/add_transaction_page.dart';
+import 'package:ruay_jung/features/transaction/presentation/pages/transaction_page.dart';
 import '../core/services/local_storage_service.dart';
 import '../features/auth/presentation/bloc/auth_bloc.dart';
 import '../features/auth/presentation/pages/login_page.dart';
@@ -59,7 +61,7 @@ final router = GoRouter(
             GoRoute(
               path: '/home',
               name: 'home',
-              builder: (_, _) => const HomePage(),
+              builder: (_, __) => const HomePage(),
             ),
           ],
         ),
@@ -68,11 +70,15 @@ final router = GoRouter(
             GoRoute(
               path: '/profile',
               name: 'profile',
-              builder: (_, _) => const ProfilePage(),
+              builder: (_, __) => const ProfilePage(),
             ),
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/add-transaction',
+      builder: (context, state) => const AddTransactionPage(),
     ),
   ],
 );
